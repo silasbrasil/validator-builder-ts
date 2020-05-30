@@ -1,5 +1,10 @@
-import { ValidatorBuilder } from '../src/ValidatorBuilder';
-import { isNotEmpty, isGreaterThan, isEmail, isCpf, isCnpj } from '../src/validators';
+import {
+  ValidatorBuilder,
+  isNotEmpty,
+  isGreaterThan,
+  isEmail,
+  isCpf,
+  isCnpj } from '../src';
 
 
 /**
@@ -26,9 +31,9 @@ class PersonTest extends ValidatorBuilder {
     super();
 
     this.onValidate()
-      .validateIf(isNotEmpty(this.name), 'name', 'Name não pode ser vazio', 404)
-      .validateIf(isCpf(this.nin), 'nin', 'Cpf inválido')
-      .validateIf(isGreaterThan(this.age, 24), 'age', 'Você é menino novo', 404)
+      .validateIf(isNotEmpty(this.name), 'name', 'Nome não pode ser vazio', 404)
+      .validateIf(isCpf(this.nin), 'cpf', 'CPF é inválido')
+      .validateIf(isGreaterThan(this.age, 27), 'age', 'Você menor de idade', 401)
       .validateIf(isEmail(this.email), 'email', 'Você não tem um email válido', 303)
       .validateIf(isCnpj(this.cnpj), 'cnpj', 'Cnpj é inválido')
       .validate();
@@ -49,7 +54,24 @@ class PersonTest extends ValidatorBuilder {
   }
 }
 
-const person: PersonTest = new PersonTest('Silas', '60028651367', 25, 'silas@GMAIL.com', '67.160.009/0001-30');
+const p1: PersonTest = new PersonTest(
+  'Joseph',
+  '027.182.150-70',
+  25,
+  'joseph@mail.com',
+  '67.160.009/0001-30'
+ );
 
-console.log(person.isValid())
-console.log(person.getFailures())
+ const p2: PersonTest = new PersonTest(
+  'Timothy',
+  '123456789',
+  17,
+  'timothy@mail.com',
+  '21.111.0099/0003-20'
+);
+
+console.log(p1.isValid())
+console.log(p1.getFailures())
+
+console.log(p2.isValid())
+console.log(p2.getFailures())
