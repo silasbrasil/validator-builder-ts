@@ -41,7 +41,7 @@ class Person extends ValidatorBuilder {
   }
 }
 
-
+// Success case
 const p1: Person = new PersonTest(
   'Joseph',
   '027.182.150-70',
@@ -49,7 +49,10 @@ const p1: Person = new PersonTest(
   'joseph@mail.com',
   '67.160.009/0001-30'
 );
+p1.isValid() // true
+p1.getFailures() // []
 
+// Failure case
 const p2: Person = new PersonTest(
   'Timothy',
   '123456789',
@@ -57,9 +60,6 @@ const p2: Person = new PersonTest(
   'timothy@mail.com',
   '21.111.0099/0003-20'
 );
-
-p1.isValid() // true
-p1.getFailures() // []
 
 p2.isValid() // false
 p2.getFailures() 
